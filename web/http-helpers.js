@@ -17,9 +17,11 @@ exports.serveAssets = function(res, asset, callback) {
   fs.readFile(asset, function(err, data){
     if(err){
       res.writeHead(404);
+      console.log(res.statusCode);
       res.end('Page Not Found');
     } else {
-      res.writeHead(200);
+      res.writeHead(200, exports.headers);
+      console.log(res.statusCode);
       res.end(data);
     }
   });
