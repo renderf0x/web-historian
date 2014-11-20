@@ -33,8 +33,6 @@ exports.readListOfUrls = function(callback){
   });
 };
 
-// exports.readListOfUrls(console.log);
-
 exports.isUrlInList = function(url, successCB, failCB){
   successCB = successCB || _.identity;
   failCB = failCB || _.identity;
@@ -48,31 +46,21 @@ exports.isUrlInList = function(url, successCB, failCB){
   });
 };
 
-// exports.isUrlInList('www.google.com',console.log);
-// exports.isUrlInList('www.google1.com', console.log);
-
 exports.addUrlToList = function(url){
   exports.isUrlInList(url, function(){}, function(urlList, url){
     fs.appendFile(exports.paths.list, url+'\n');
   });
 };
 
-exports.addUrlToList('www.urmama.com');
-
 exports.isURLArchived = function(url, successCB, failCB){
-  //console.log(path.join(exports.paths.archivedSites, url));
   fs.exists(path.join(exports.paths.archivedSites, url), function(exists){
     if (exists){
-      // console.log('exists!');
       successCB(url);
     } else {
-      // console.log('does not exist!')
       failCB(url);
     }
   })
 };
-
-//exports.isURLArchived('www.google.com', console.log, function(){});
 
 exports.downloadUrl = function(url) {
   httpGet.get(url, path.join(exports.paths.archivedSites, url), function (err, res) {
@@ -92,7 +80,3 @@ exports.downloadUrls = function(){
     }
   });
 };
-
-
-//exports.downloadUrl('www.yahoo.com');
-//exports.downloadUrls();
